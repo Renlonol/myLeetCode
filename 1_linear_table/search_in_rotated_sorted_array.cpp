@@ -47,14 +47,14 @@ public:
             int mid = lo + (hi - lo) / 2;
             if (target == nums[mid])
                 return mid;
-            else if (nums[mid] < nums[lo])
+            else if (nums[mid] < nums[lo])// right sorted [3,1]
             {
                 if (target > nums[mid] && target <= nums[hi])
                     lo = mid + 1;
                 else
                     hi = mid - 1;
             }
-            else
+            else // left sorted
             {
                 if (target < nums[mid] && target >= nums[lo])
                     hi = mid - 1;
