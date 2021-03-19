@@ -10,13 +10,13 @@ LIBS += $(LIBRARY:%=-l%)
 
 all: $(BIN_FILES)
 
-% : ./%.o
-	@$(CC) $^ -o $@ $(LIBS)
-
-.PRECIOUS: ./%.o
-./%.o : %.cpp
+% : %.cpp
 	@echo "  cc $<"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+
+# %.o : %.cpp
+# 	@echo "  cc $<"
+# 	@$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY : clean
 clean:
