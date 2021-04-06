@@ -40,6 +40,7 @@ struct node* create_list(int n)
     return head;
 }
 
+//O(n^2)
 struct node* sort_list(struct node* head)
 {
     if (!head || !head->next)
@@ -53,7 +54,7 @@ struct node* sort_list(struct node* head)
         struct node* q = p;
         int min_data = q->next->data;
         struct node* min_node_prev = p;
-
+        // find the prev node of the min node
         while (q->next)
         {
             if (q->next->data < min_data)
@@ -63,7 +64,7 @@ struct node* sort_list(struct node* head)
             }
             q = q->next;
         }
-
+        // move the min node
         if (min_node_prev != p)
         {
             struct node* min_node = min_node_prev->next;
