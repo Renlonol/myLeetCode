@@ -78,13 +78,72 @@ struct node* sort_list(struct node* head)
     return head_node.next;
 }
 
+struct node* merge_sorted_list(struct node* mhead, struct node* nhead)
+{
+    if(!mhead)
+        return nhead;
+
+    if(!nhead)
+        return mhead;
+
+    struct node head_node(-1);
+    struct node* p = &head_node;
+
+    while (mhead && nhead)
+    {
+        if(mhead->data < nhead->data)
+        {
+            p->next = mhead;
+            mhead = mhead->next;
+        }
+        else
+        {
+            p->next = nhead;
+            nhead = nhead->next;
+        }
+        p->next->next = nullptr;
+        p = p->next;
+    }
+
+    if(!mhead && nhead)
+    {
+        while(nhead)
+        {
+            p->next = nhead;
+            nhead = nhead->next;
+            p->next->next = nullptr;
+            p = p->next;
+        }
+    }
+
+    if(!nhead && mhead)
+    {
+        while(mhead)
+        {
+            p->next = mhead;
+            mhead = mhead->next;
+            p->next->next = nullptr;
+            p = p->next;
+        }
+    }
+
+    return head_node.next;
+}
+
 
 int main()
 {
-    int N;
+    int N, M;
     cin >> N;
-    struct node* head = create_list(N);
-    head = sort_list(head);
-    print_list(head);
+    struct node* nhead = create_list(N);
+    nhead = sort_list(nhead);
+    //print_list(head);
+
+    cin >> M;
+    struct node* mhead = create_list(M);
+    mhead = sort_list(mhead);
+
+    struct node* merged_head =  merge_sorted_list(nhead, mhead);
+    print_list(merged_head);
     return 0;
 }
